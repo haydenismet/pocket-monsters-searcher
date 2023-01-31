@@ -55,49 +55,258 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
 
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
 
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="placeholder">
+            <img
+              src={placeholder}
+              alt="placeholder"
+              className="placeholder-image"
+            />
+            <div className="details-interaction">
+              <div className="details">
+                <div className="name">Name</div>
+                <div className="number">001/198</div>
+                <div className="base">Base Set</div>
+                <div className="sub">Sub Set</div>
+                <div className="release">Release</div>
+              </div>
+              <div className="interaction">
+                <div className="icon-want">Want</div>
+                <div className="icon-want">Have</div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </>
