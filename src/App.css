@@ -56,6 +56,7 @@ body {
   grid-template-rows: 4rem repeat(3, auto);
   align-items: center;
   justify-items: center;
+  padding: 2rem;
 }
 
 .results h1 {
