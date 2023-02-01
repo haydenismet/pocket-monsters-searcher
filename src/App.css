@@ -26,6 +26,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.7;
   background-color: #fbfbfb;
+  font-family: "Jost", sans-serif;
 }
 
 .main-container {
@@ -48,8 +49,6 @@ body {
 .navigation ul li {
   list-style-type: none;
   text-align: center;
-  font-family: "Jost", sans-serif;
-  font-weight: 900;
 }
 
 .brand-logo {
@@ -58,29 +57,37 @@ body {
 
 .results {
   display: grid;
-  grid-gap: 3rem;
+  grid-column-gap: 3rem;
+  grid-row-gap: 4.5rem;
   grid-template-columns: repeat(6, auto);
   grid-template-rows: 4rem repeat(3, auto);
   padding: 2.5rem 2rem 5rem 2rem;
   align-items: center;
   justify-items: center;
 }
+.name,
+.number {
+  font-weight: 600;
+}
 
+.base,
+.sub,
+.release {
+  font-size: 1.2rem;
+}
 h1 {
   grid-column-start: 1;
   grid-column-end: 7;
   justify-self: stretch;
   font-size: 3.2rem;
   text-align: center;
-  font-family: "Jost", sans-serif;
   font-weight: 900;
+  letter-spacing: 0.05rem;
 }
 
 h6 {
   font-size: 1.6rem;
-  margin-top: -10px;
-  font-family: "Jost", sans-serif;
-  font-weight: 900;
+  margin-top: -1rem;
 }
 
 .card {
@@ -96,8 +103,8 @@ h6 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0 0.3rem;
-  font-family: "Jost", sans-serif;
-  font-weight: 900;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
 }
 
 .interaction {
