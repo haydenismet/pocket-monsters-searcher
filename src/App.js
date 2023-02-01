@@ -1,13 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
 import placeholder from "./assets/img/placeholder.png";
+import logo from "./assets/img/Logo.svg";
 
 function App() {
   return (
     <>
       <div className="main-container">
         <nav className="navigation">
-          <div id="pocket-collector-logo">Logo</div>
+          <div id="pocket-collector-logo">
+            <img src={logo} alt="Pocket Collector" className="brand-logo" />
+          </div>
           <ul>
             <li>
               <h3>Sword & Shield Sets</h3>
@@ -33,7 +35,9 @@ function App() {
           <footer>hayden ismet</footer>
         </nav>
         <section className="results">
-          <h1>Crown Zenith</h1>
+          <h1>
+            Sword & Shield <h6>Crown Zenith</h6>
+          </h1>
 
           <div className="placeholder">
             <img

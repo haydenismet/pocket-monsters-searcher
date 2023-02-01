@@ -2,6 +2,7 @@
 1em = 16px
 1.6rem = 16px
 */
+
 *,
 *::after,
 *::before {
@@ -47,6 +48,12 @@ body {
 .navigation ul li {
   list-style-type: none;
   text-align: center;
+  font-family: "Jost", sans-serif;
+  font-weight: 900;
+}
+
+.brand-logo {
+  margin-top: 3rem;
 }
 
 .results {
@@ -54,15 +61,26 @@ body {
   grid-gap: 3rem;
   grid-template-columns: repeat(6, auto);
   grid-template-rows: 4rem repeat(3, auto);
-  padding: 0.5rem 2rem 5rem 2rem;
+  padding: 2.5rem 2rem 5rem 2rem;
   align-items: center;
   justify-items: center;
 }
 
-.results h1 {
+h1 {
   grid-column-start: 1;
   grid-column-end: 7;
   justify-self: stretch;
+  font-size: 3.2rem;
+  text-align: center;
+  font-family: "Jost", sans-serif;
+  font-weight: 900;
+}
+
+h6 {
+  font-size: 1.6rem;
+  margin-top: -10px;
+  font-family: "Jost", sans-serif;
+  font-weight: 900;
 }
 
 .card {
@@ -78,6 +96,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0 0.3rem;
+  font-family: "Jost", sans-serif;
+  font-weight: 900;
 }
 
 .interaction {
