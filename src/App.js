@@ -1,6 +1,8 @@
 import "./App.css";
 import placeholder from "./assets/img/placeholder.png";
 import logo from "./assets/img/Logo.svg";
+import add from "./assets/img/Add.svg";
+import want from "./assets/img/Want.svg";
 
 function App() {
   return (
@@ -11,11 +13,11 @@ function App() {
             <img src={logo} alt="Pocket Collector" className="brand-logo" />
           </div>
           <ul>
-            <li>
+            {/*<li>
               <h3>Sword & Shield Sets</h3>
-            </li>
+  </li>*/}
             <li>Crown Zenith</li>
-            <li>Silver Tempest</li>
+            {/* <li>Silver Tempest</li>
             <li>Lost Origin</li>
             <li>Pokemon Go</li>
             <li>Astral Radiance</li>
@@ -30,13 +32,13 @@ function App() {
             <li>Champion's Path</li>
             <li>Darkness Ablaze</li>
             <li>Rebel Clash</li>
-            <li>Sword & Shield</li>
+  <li>Sword & Shield</li>*/}
           </ul>
           <footer>hayden ismet</footer>
         </nav>
         <section className="results">
           <h1>
-            Sword & Shield <h6>Crown Zenith</h6>
+            Sword & Shield<h6>Crown Zenith</h6>
           </h1>
 
           <div className="placeholder">
@@ -47,15 +49,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -68,15 +76,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -89,15 +103,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -110,15 +130,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -131,15 +157,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -152,15 +184,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
@@ -173,141 +211,21 @@ function App() {
             />
             <div className="details-interaction">
               <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
+                <div className="name">Deoxys</div>
+                <div className="number">GG12/GG70</div>
+                <div className="base">Sword & Shield</div>
+                <div className="sub">Crown Zenith</div>
               </div>
               <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Name</div>
-                <div className="number">001/198</div>
-                <div className="base">Base Set</div>
-                <div className="sub">Sub Set</div>
-                <div className="release">Release</div>
-              </div>
-              <div className="interaction">
-                <div className="icon-want">Want</div>
-                <div className="icon-want">Have</div>
+                <div className="icons">
+                  <div className="icon-want">
+                    <img src={want} alt="want this card" />
+                  </div>
+                  <div className="icon-have">
+                    <img src={add} alt="add this card" />
+                  </div>
+                </div>
+                <div className="release">2023</div>
               </div>
             </div>
           </div>
