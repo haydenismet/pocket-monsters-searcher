@@ -17,7 +17,8 @@ function App() {
               <h3>Sword & Shield Sets</h3>
   </li>*/}
             <li>Crown Zenith</li>
-            {/* <li>Silver Tempest</li>
+            <li>Silver Tempest</li>
+            {/* 
             <li>Lost Origin</li>
             <li>Pokemon Go</li>
             <li>Astral Radiance</li>

@@ -118,7 +118,7 @@ h1 {
   font-size: 3.2rem;
   text-align: center;
   font-weight: 900;
-  letter-spacing: 0.05rem;
+  letter-spacing: -0.2rem;
   color: #1a202c;
 }
 
@@ -126,6 +126,7 @@ h6 {
   font-size: 1.6rem;
   margin-top: -1rem;
   color: #1a202c;
+  letter-spacing: 0;
 }
 
 .card {
@@ -147,10 +148,12 @@ h6 {
 
 .icons .icon-want img {
   height: 19px;
+  cursor: pointer;
 }
 
 .icons .icon-have img {
   height: 20px;
+  cursor: pointer;
 }
 .interaction {
   justify-self: self-end;
