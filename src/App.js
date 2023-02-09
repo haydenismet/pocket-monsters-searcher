@@ -1,17 +1,31 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import placeholder from "./assets/img/placeholder.png";
 import logo from "./assets/img/Logo.svg";
+import logoMobile from "./assets/img/logo-mobile.svg";
 import add from "./assets/img/Add.svg";
 import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 
 function App() {
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  const windowSizeSetting = () => {
+    setWindowSize(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", windowSizeSetting);
+  });
   return (
     <>
       <div className="main-container">
         <nav className="navigation">
           <div id="pocket-collector-logo">
-            <img src={logo} alt="Pocket Collector" className="brand-logo" />
+            <img
+              src={windowSize > 445 ? logo : logoMobile}
+              alt="Pocket Collector"
+              className="brand-logo"
+            />
           </div>
           <ul>
             {/*<li>
@@ -19,12 +33,12 @@ function App() {
   </li>*/}
             <li>Crown Zenith</li>
             <li>Silver Tempest</li>
-            {/* 
+
             <li>Lost Origin</li>
             <li>Pokemon Go</li>
             <li>Astral Radiance</li>
             <li>Brilliant Stars</li>
-            <li>Fusion Strike</li>
+            {/* <li>Fusion Strike</li>
             <li>Celebrations</li>
             <li>Evolving Skies</li>
             <li>Chilling Reign</li>

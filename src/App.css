@@ -29,6 +29,10 @@ body {
   font-family: "Jost", sans-serif;
 }
 
+.hide {
+  display: none;
+}
+
 .main-container {
   display: grid;
   grid-template-columns: 25rem 1fr;
@@ -81,15 +85,6 @@ without the grid auto flow property and it just takes up space until my media qu
   margin: 3rem 5rem;
 }
 
-/*with grid auto flow column set*/
-@media screen and (max-width: 1200px) {
-  .results {
-    grid-row-gap: 3.5rem;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-auto-flow: column;
-  }
-}
 .name {
   font-weight: 600;
 }
@@ -206,6 +201,16 @@ footer img:hover {
   transform: scale(1.1);
 }
 
+/*with grid auto flow column set
+@media screen and (max-width: 1200px) {
+  .results {
+    grid-row-gap: 3.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-auto-flow: column;
+  }
+}*/
+
 @media (max-width: 1200px) {
   .results {
     grid-template-columns: repeat(6, 1fr);
@@ -229,5 +234,58 @@ footer img:hover {
 
   .results {
     padding-top: 2.5rem;
+  }
+
+  .navigation {
+    align-content: inherit;
+  }
+
+  .navigation ul li {
+    max-width: 10rem;
+    line-height: 2rem;
+  }
+}
+
+@media (max-width: 698px) {
+  .main-container {
+    grid-template-rows: 25rem;
+    grid-template-columns: 1fr;
+  }
+  .navigation {
+    height: auto;
+    z-index: 1;
+  }
+  .results {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .navigation ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navigation ul li {
+    padding: 1rem;
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+@media (max-width: 445px) {
+  .results {
+    grid-template-columns: auto;
+  }
+  .navigation {
+    align-content: space-evenly;
+  }
+  .brand-logo {
+    margin-top: 0;
+  }
+  .navigation ul {
+    align-items: center;
   }
 }
