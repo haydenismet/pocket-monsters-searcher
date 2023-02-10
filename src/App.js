@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import placeholder from "./assets/img/placeholder.png";
 import logo from "./assets/img/Logo.svg";
@@ -7,35 +7,38 @@ import add from "./assets/img/Add.svg";
 import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 import { ajax } from "rxjs/ajax";
-import { fromEvent, Observable, tap, map } from "rxjs";
+import { fromEvent } from "rxjs";
+import {
+  scan,
+  map,
+  switchMap,
+  takeWhile,
+  concatMap,
+  debounceTime,
+} from "rxjs/operators";
 
 function App() {
   //RXJS
-  //create observable that emits click events
-  const source = fromEvent(document, "click");
-  //map to string with given event timestamp
-  const example = source.pipe(map((event) => `Event time: ${event.timeStamp}`));
-  //output (example): 'Event time: 7276.390000000001'
-  example.subscribe((val) => console.log(val));
-  /*
-    const selector$ = fromEvent(czSelector, "click");
-
-    const call$ = selector$.pipe(
-      ajax({
-        url: "https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg",
-        method: "GET",
-        headers: {
-          "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
-        },
-      }),
-      tap(console.log)
-    );
-
-    call$.subscribe({
-      next: (value) => console.log(value.response.data),
-      complete: () => console.log("complete"),
-    });*/
-
+  const [data, setData] = useState("");
+  // timeout not ideal but temp fix for allowing dom to load before trying to find selector and failing.
+  let navSelector;
+  setTimeout(() => {
+    navSelector = document.querySelector(".crown-zenith");
+    fromEvent(navSelector, "click")
+      .pipe(
+        concatMap(() =>
+          ajax({
+            url: "https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg",
+            method: "GET",
+            headers: {
+              "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+            },
+          })
+        )
+      )
+      .subscribe((value) => setData(value));
+  }, 10000);
+  console.log("data from useState", data);
   // REACT //
   /*const [windowSize, setWindowSize] = useState(window.innerWidth);
 
