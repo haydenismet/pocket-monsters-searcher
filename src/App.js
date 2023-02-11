@@ -65,13 +65,10 @@ function App() {
       )
     );
     selectedNavCards$.subscribe({
-      next: (value) => setCards(value),
+      next: (value) => setCards(value.response),
       complete: () => console.log("Completed cards"),
     });
   }, []);
-
-  //console.log(navSelector.current.map((items) => console.log(items)));
-  console.log("cards", cards);
 
   /* Desktop or Mobile Logo setting */
   const windowSizeSetting = () => {
@@ -95,7 +92,7 @@ function App() {
           <ul>
             {navigationList
               ? navigationList.map((nav, index) => {
-                  //console.log(navSelector.current[index]);
+                  console.log(navSelector.current[index]);
                   return (
                     <li
                       key={index}
@@ -116,32 +113,40 @@ function App() {
           </footer>
         </nav>
         <section className="results">
-          <div className="placeholder">
-            <img
-              src={placeholder}
-              alt="placeholder"
-              className="placeholder-image"
-            />
-            <div className="details-interaction">
-              <div className="details">
-                <div className="name">Deoxys</div>
-                <div className="number">GG12/GG70</div>
-                <div className="base">Sword & Shield</div>
-                <div className="sub">Crown Zenith</div>
-              </div>
-              <div className="interaction">
-                <div className="icons">
-                  <div className="icon-want">
-                    <img src={want} alt="want this card" />
-                  </div>
-                  <div className="icon-have">
-                    <img src={add} alt="add this card" />
-                  </div>
-                </div>
-                <div className="release">2023</div>
-              </div>
-            </div>
-          </div>
+          {cards
+            ? cards.data.map((card, i) => {
+                return (
+                  <>
+                    <div className="placeholder" key={i}>
+                      <img
+                        src={card.images.large}
+                        alt="placeholder"
+                        className="placeholder-image"
+                      />
+                      <div className="details-interaction">
+                        <div className="details">
+                          <div className="name">{card.name}</div>
+                          <div className="number">{card.number}</div>
+                          <div className="base">{card.set.series}</div>
+                          <div className="sub">{card.set.name}</div>
+                        </div>
+                        <div className="interaction">
+                          <div className="icons">
+                            <div className="icon-want">
+                              <img src={want} alt="want this card" />
+                            </div>
+                            <div className="icon-have">
+                              <img src={add} alt="add this card" />
+                            </div>
+                          </div>
+                          <div className="release">{card.set.releaseDate}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })
+            : "Loading"}
         </section>
       </div>
     </>
