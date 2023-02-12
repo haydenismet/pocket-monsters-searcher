@@ -8,23 +8,28 @@ import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 import loadSpinner from "./assets/img/load-cards-spinner.svg";
 import { ajax } from "rxjs/ajax";
-import { fromEvent, Observable } from "rxjs";
-import { map, concatMap, switchMap, tap, filter } from "rxjs/operators";
+import { fromEvent, throwError } from "rxjs";
+import {
+  map,
+  concatMap,
+  switchMap,
+  tap,
+  filter,
+  catchError,
+} from "rxjs/operators";
 
 function App() {
-  /* SETUP */
+  /*****************SETUP*********************/
+
   // getCards API
   const [cards, setCards] = useState();
   // getSets API
   const [navigationList, setNavigationList] = useState("");
-  // Get window.innerWidth
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
   // Loads nav without breaking React render
   const navSelector = useRef([]);
-  // Set the matching selected navList ref for API call
-  const [selectedCall, setSelectedCall] = useState();
 
-  /* Gets all sets for navigation list */
+  /********************************************/
+
   const getAllSets$ = ajax({
     url: "https://api.pokemontcg.io/v2/sets",
     method: "GET",
@@ -32,7 +37,11 @@ function App() {
       "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
     },
   }).pipe(
-    // having to nest && return maps/filters due to object itself being nested.
+    catchError(() => {
+      return throwError(
+        () => new Error("Could not fetch navigation list from API")
+      );
+    }),
     map((val) => {
       return val.response.data.filter(
         (item) =>
@@ -44,39 +53,61 @@ function App() {
       return val.map(({ name, id }) => ({ name, id }));
     })
   );
-  // useEffect run x1 rerender on subscribe.
+
   useEffect(() => {
     getAllSets$.subscribe({
       next: (value) => setNavigationList(value),
-      complete: () => console.log("Completed navigationList"),
+      complete: () => console.log("COMPLETE: navSubscription"),
+      error: (e) => {
+        console.log("ERROR: navSubscription", e);
+      },
     });
   }, []);
 
-  /* Currently gets all cards on click for crown zenith trainer gallery
-  useEffect encapsulates whole for useRef selector  */
-  useEffect(() => {
-    const renderCards$ = fromEvent(navSelector.current, "click").pipe(
-      //tap((val) => console.log(val.target.id)),
-      map((val) => {
-        return val.target.id;
-      }),
-      switchMap((val) =>
-        ajax({
-          url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
-          method: "GET",
-          headers: {
-            "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
-          },
-        })
-      ),
-      map((val) => val.response)
-    );
+  /*****************************************************************/
 
-    renderCards$.subscribe({
+  /**********************RENDER_CARDS_API**************************/
+
+  const renderCards$ = fromEvent(navSelector.current, "click").pipe(
+    //tap((val) => console.log(val.target.id)),
+    catchError(() => {
+      return throwError(() => new Error("Could not fetch selector from DOM"));
+    }),
+    map((val) => {
+      return val.target.id;
+    }),
+    switchMap((val) =>
+      ajax({
+        url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
+        method: "GET",
+        headers: {
+          "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+        },
+      })
+    ),
+    catchError(() => {
+      return throwError(() => new Error("Could not fetch cards list from API"));
+    }),
+    map((val) => val.response)
+  );
+
+  useEffect(() => {
+    const cardSubscription = renderCards$.subscribe({
       next: (value) => setCards(value),
-      complete: () => console.log("Completed cards"),
+      complete: () => console.log("COMPLETE: cardSubscription"),
+      error: (e) => console.log("ERROR: cardSubscription ", e),
     });
+
+    //unsubbing here as useEffect isnt passing empty arr, [] - to avoid rerun of network request onClick
+    if (cards) {
+      cardSubscription.unsubscribe();
+      console.log("UNSUBSCRIBED : cardSubscription");
+    }
   });
+
+  /*****************************************************************/
+
+  /******************RENDER_CARDS_PAGELOAD_API**********************/
 
   const pageLoad$ = ajax({
     url: `https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg`,
@@ -84,33 +115,36 @@ function App() {
     headers: {
       "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
     },
-  }).pipe(map((val) => val.response));
+  }).pipe(
+    catchError(() => {
+      return throwError(
+        () => new Error("Could not fetch cards API for pageLoad ")
+      );
+    }),
+    map((val) => val.response)
+  );
 
   useEffect(() => {
     pageLoad$.subscribe({
       next: (value) => setCards(value),
-      complete: () => console.log("Completed card onPageLoad"),
+      complete: () => console.log("COMPLETE: cardsPageLoad"),
+      error: (e) => console.log("ERROR: cardsPageLoad ", e),
     });
+
+    /*  if (cards) {
+      pageLoadSubscription.unsubscribe();
+      console.log("UNSUBSCRIBED : pageLoadSubscription");
+    }*/
   }, []);
 
-  /* Desktop or Mobile Logo setting */
-  const windowSizeSetting = () => {
-    setWindowSize(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", windowSizeSetting);
-  }, [windowSize]);
+  /*****************************************************************/
 
   return (
     <>
       <div className="main-container">
         <nav className="navigation">
           <div id="pocket-collector-logo">
-            <img
-              src={windowSize > 768 ? logo : logoMobile}
-              alt="Pocket Collector"
-              className="brand-logo"
-            />
+            <img src={logo} alt="Pocket Collector" className="brand-logo" />
           </div>
           <ul>
             {navigationList ? (
