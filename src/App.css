@@ -277,6 +277,11 @@ footer img:hover {
   footer {
     display: none;
   }
+
+  .card-load {
+    grid-column-start: span 12;
+    grid-row-start: span 12;
+  }
 }
 
 @media (max-width: 500px) {
