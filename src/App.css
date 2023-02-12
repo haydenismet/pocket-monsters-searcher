@@ -35,7 +35,7 @@ body {
 
 .main-container {
   display: grid;
-  grid-template-columns: 25rem 1fr;
+  grid-template-columns: 30rem 1fr;
 }
 
 .navigation {
@@ -56,6 +56,7 @@ body {
   cursor: pointer;
   font-weight: 600;
   letter-spacing: 0.03rem;
+  margin-top: 1rem;
 }
 .nav-load {
   max-height: 10rem;
@@ -85,7 +86,7 @@ without the grid auto flow property and it just takes up space until my media qu
   display: grid;
   grid-column-gap: 3rem;
   grid-row-gap: 3rem;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
@@ -129,6 +130,7 @@ h1 {
   font-weight: 900;
   letter-spacing: -0.2rem;
   color: #1a202c;
+  margin-top: 1rem;
 }
 
 h6 {
@@ -149,7 +151,7 @@ h6 {
 
 .details-interaction {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1fr;
   padding: 0 0.3rem;
   font-size: 1.3rem;
   line-height: 1.8rem;
@@ -219,7 +221,7 @@ footer img:hover {
   }
 }*/
 
-.icons {
+.interaction {
   display: none;
 }
 
@@ -245,20 +247,10 @@ footer img:hover {
   }
 
   .results {
+    grid-template-columns: repeat(12, 1fr);
     padding-top: 2.5rem;
   }
 
-  .navigation {
-    align-content: inherit;
-  }
-
-  .navigation ul li {
-    max-width: 10rem;
-    line-height: 2rem;
-  }
-}
-
-@media (max-width: 698px) {
   .main-container {
     grid-template-rows: 25rem;
     grid-template-columns: 1fr;
@@ -266,9 +258,7 @@ footer img:hover {
   .navigation {
     height: auto;
     z-index: 1;
-  }
-  .results {
-    grid-template-columns: repeat(12, 1fr);
+    align-content: inherit;
   }
 
   .navigation ul {
@@ -279,6 +269,8 @@ footer img:hover {
   }
 
   .navigation ul li {
+    max-width: 10rem;
+    line-height: 2rem;
     padding: 1rem;
   }
 
@@ -287,17 +279,33 @@ footer img:hover {
   }
 }
 
-@media (max-width: 445px) {
+@media (max-width: 500px) {
+  .navigation ul li {
+    max-width: 15rem;
+  }
+}
+
+@media (max-width: 450px) {
   .results {
     grid-template-columns: auto;
+    margin-top: 8rem;
   }
   .navigation {
     align-content: space-evenly;
+    position: relative;
   }
   .brand-logo {
     margin-top: 0;
   }
   .navigation ul {
     align-items: center;
+  }
+  .navigation ul li {
+    max-width: 30rem;
+  }
+
+  .navigation {
+    padding: 1rem 0;
+    height: min-content;
   }
 }
