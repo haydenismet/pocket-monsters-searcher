@@ -54,27 +54,27 @@ function App() {
   /* Currently gets all cards on click for crown zenith trainer gallery
   useEffect encapsulates whole for useRef selector  */
   useEffect(() => {
-    fromEvent(navSelector.current, "click")
-      .pipe(
-        //tap((val) => console.log(val.target.id)),
-        map((val) => {
-          return val.target.id;
-        }),
-        switchMap((val) =>
-          ajax({
-            url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
-            method: "GET",
-            headers: {
-              "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
-            },
-          })
-        ),
-        map((val) => val.response)
-      )
-      .subscribe({
-        next: (value) => setCards(value),
-        complete: () => console.log("Completed cards"),
-      });
+    const renderCards$ = fromEvent(navSelector.current, "click").pipe(
+      //tap((val) => console.log(val.target.id)),
+      map((val) => {
+        return val.target.id;
+      }),
+      switchMap((val) =>
+        ajax({
+          url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
+          method: "GET",
+          headers: {
+            "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+          },
+        })
+      ),
+      map((val) => val.response)
+    );
+
+    renderCards$.subscribe({
+      next: (value) => setCards(value),
+      complete: () => console.log("Completed cards"),
+    });
   });
 
   /* Desktop or Mobile Logo setting */
