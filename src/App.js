@@ -8,19 +8,20 @@ import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 import { ajax } from "rxjs/ajax";
 import { fromEvent, Observable } from "rxjs";
-import { map, concatMap, tap, filter } from "rxjs/operators";
+import { map, concatMap, switchMap, tap, filter } from "rxjs/operators";
 
 function App() {
   /* SETUP */
   // getCards API
-  const [cards, setCards] = useState("");
+  const [cards, setCards] = useState();
   // getSets API
   const [navigationList, setNavigationList] = useState("");
   // Get window.innerWidth
   const [windowSize, setWindowSize] = useState(window.innerWidth);
-
   // Loads nav without breaking React render
   const navSelector = useRef([]);
+  // Set the matching selected navList ref for API call
+  const [selectedCall, setSelectedCall] = useState();
 
   /* Gets all sets for navigation list */
   const getAllSets$ = ajax({
@@ -53,22 +54,28 @@ function App() {
   /* Currently gets all cards on click for crown zenith trainer gallery
   useEffect encapsulates whole for useRef selector  */
   useEffect(() => {
-    const selectedNavCards$ = fromEvent(navSelector.current, "click").pipe(
-      concatMap(() =>
-        ajax({
-          url: `https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg`,
-          method: "GET",
-          headers: {
-            "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
-          },
-        })
+    fromEvent(navSelector.current, "click")
+      .pipe(
+        //tap((val) => console.log(val.target.id)),
+        map((val) => {
+          return val.target.id;
+        }),
+        switchMap((val) =>
+          ajax({
+            url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
+            method: "GET",
+            headers: {
+              "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+            },
+          })
+        ),
+        map((val) => val.response)
       )
-    );
-    selectedNavCards$.subscribe({
-      next: (value) => setCards(value.response),
-      complete: () => console.log("Completed cards"),
-    });
-  }, []);
+      .subscribe({
+        next: (value) => setCards(value),
+        complete: () => console.log("Completed cards"),
+      });
+  });
 
   /* Desktop or Mobile Logo setting */
   const windowSizeSetting = () => {
@@ -77,7 +84,7 @@ function App() {
   useEffect(() => {
     window.addEventListener("resize", windowSizeSetting);
   }, [windowSize]);
-  //console.log(navSelector);
+
   return (
     <>
       <div className="main-container">
@@ -92,7 +99,6 @@ function App() {
           <ul>
             {navigationList
               ? navigationList.map((nav, index) => {
-                  console.log(navSelector.current[index]);
                   return (
                     <li
                       key={index}
@@ -106,7 +112,7 @@ function App() {
                     </li>
                   );
                 })
-              : "Loading"}
+              : "Select a set."}
           </ul>
           <footer>
             <img src={github} alt="Github" />
@@ -119,7 +125,7 @@ function App() {
                   <>
                     <div className="placeholder" key={i}>
                       <img
-                        src={card.images.large}
+                        src={card.images.small}
                         alt="placeholder"
                         className="placeholder-image"
                       />
@@ -146,7 +152,7 @@ function App() {
                   </>
                 );
               })
-            : "Loading"}
+            : "Select set to start."}
         </section>
       </div>
     </>
