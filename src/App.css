@@ -57,7 +57,15 @@ body {
   font-weight: 600;
   letter-spacing: 0.03rem;
 }
+.nav-load {
+  max-height: 10rem;
+  width: auto;
+}
 
+.card-load {
+  grid-column-start: span 6;
+  grid-row-start: span 6;
+}
 .navigation ul li:hover {
   color: #ffe163;
 }

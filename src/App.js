@@ -6,6 +6,7 @@ import logoMobile from "./assets/img/logo-mobile.svg";
 import add from "./assets/img/Add.svg";
 import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
+import loadSpinner from "./assets/img/load-cards-spinner.svg";
 import { ajax } from "rxjs/ajax";
 import { fromEvent, Observable } from "rxjs";
 import { map, concatMap, switchMap, tap, filter } from "rxjs/operators";
@@ -77,6 +78,21 @@ function App() {
     });
   });
 
+  const pageLoad$ = ajax({
+    url: `https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg`,
+    method: "GET",
+    headers: {
+      "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+    },
+  }).pipe(map((val) => val.response));
+
+  useEffect(() => {
+    pageLoad$.subscribe({
+      next: (value) => setCards(value),
+      complete: () => console.log("Completed card onPageLoad"),
+    });
+  }, []);
+
   /* Desktop or Mobile Logo setting */
   const windowSizeSetting = () => {
     setWindowSize(window.innerWidth);
@@ -97,62 +113,66 @@ function App() {
             />
           </div>
           <ul>
-            {navigationList
-              ? navigationList.map((nav, index) => {
-                  return (
-                    <li
-                      key={index}
-                      id={nav.id}
-                      className="generated-nav"
-                      ref={(element) => {
-                        navSelector.current[index] = element;
-                      }}
-                    >
-                      {nav.name}
-                    </li>
-                  );
-                })
-              : "Select a set."}
+            {navigationList ? (
+              navigationList.map((nav, index) => {
+                return (
+                  <li
+                    key={index}
+                    id={nav.id}
+                    className="generated-nav"
+                    ref={(element) => {
+                      navSelector.current[index] = element;
+                    }}
+                  >
+                    {nav.name}
+                  </li>
+                );
+              })
+            ) : (
+              <img src={loadSpinner} alt="loading" className="nav-load" />
+            )}
           </ul>
           <footer>
             <img src={github} alt="Github" />
           </footer>
         </nav>
         <section className="results">
-          {cards
-            ? cards.data.map((card, i) => {
-                return (
-                  <>
-                    <div className="placeholder" key={i}>
-                      <img
-                        src={card.images.small}
-                        alt="placeholder"
-                        className="placeholder-image"
-                      />
-                      <div className="details-interaction">
-                        <div className="details">
-                          <div className="name">{card.name}</div>
-                          <div className="number">{card.number}</div>
-                          <div className="base">{card.set.series}</div>
-                          <div className="sub">{card.set.name}</div>
-                        </div>
-                        <div className="interaction">
-                          <div className="icons">
-                            <div className="icon-want">
-                              <img src={want} alt="want this card" />
-                            </div>
-                            <div className="icon-have">
-                              <img src={add} alt="add this card" />
-                            </div>
+          {cards ? (
+            cards.data.map((card, i) => {
+              return (
+                <>
+                  <div className="placeholder" key={i}>
+                    <img
+                      src={card.images.small}
+                      alt="placeholder"
+                      className="placeholder-image"
+                    />
+                    <div className="details-interaction">
+                      <div className="details">
+                        <div className="name">{card.name}</div>
+                        <div className="number">{card.number}</div>
+                        <div className="base">{card.set.series}</div>
+                        <div className="sub">{card.set.name}</div>
+                      </div>
+                      <div className="interaction">
+                        <div className="icons">
+                          <div className="icon-want">
+                            <img src={want} alt="want this card" />
                           </div>
-                          <div className="release">{card.set.releaseDate}</div>
+                          <div className="icon-have">
+                            <img src={add} alt="add this card" />
+                          </div>
                         </div>
+                        <div className="release">{card.set.releaseDate}</div>
                       </div>
                     </div>
-                  </>
-                );
-              })
-            : "Select set to start."}
+                  </div>
+                </>
+              );
+            })
+          ) : (
+            <img src={loadSpinner} alt="loading" className="card-load" />
+          )}
         </section>
       </div>
     </>
