@@ -19,7 +19,6 @@ import {
 } from "rxjs/operators";
 
 function App() {
-  // these not working?
   interface NavigationItems {
     name: string;
     id: string;
