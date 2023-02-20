@@ -20,22 +20,42 @@ import {
 
 function App() {
   // these not working?
-  interface NavigationItems {}
+  interface NavigationItems {
+    name: string;
+    id: string;
+  }
 
-  interface CardItems {}
+  interface Card {
+    id: string;
+    images: { large: string; small: string };
+    name: string;
+    number: string;
+    set: { name: string; series: string; releaseDate: string };
+  }
 
-  // can we tweak this or the typescript declaration to just use the `in` operator keyword to say is the response in the obj, if so continue or something. Don't need anything else.
-  interface setResponse {
-    loaded?: number;
-    originalEvent?: any;
-    request?: any;
-    response?: any;
-    responseHeaders?: any;
-    responseType?: string;
-    status?: number;
+  interface CardItems extends Card {
+    data: Card[];
+  }
+
+  interface pokemonSetsAjax {
+    //TODO : any usage
+    response: any;
+  }
+
+  interface pokemonSetsResponse {
+    id: string;
+    images?: {
+      logo?: string;
+      symbol?: string;
+    };
+    legalities?: { unlimited?: string; standard?: string; expanded?: string };
+    name: string;
+    printedTotal?: string;
+    ptcgoCode?: string;
+    releaseDate: string;
+    series: string;
     total?: number;
-    type: string;
-    xhr?: any;
+    updatedAt?: string;
   }
   /*****************SETUP*********************/
 
@@ -46,7 +66,7 @@ function App() {
     NavigationItems[] | null
   >(null);
   // Loads nav without breaking React render
-  const navSelector = useRef<HTMLDivElement[]>([]);
+  const navSelector = useRef<HTMLLIElement[]>([]);
 
   /********************************************/
 
@@ -62,14 +82,15 @@ function App() {
         () => new Error("Could not fetch navigation list from API")
       );
     }),
-    tap((val: setResponse) => console.log("allsetsVal", val)),
-    map((val) => {
+
+    map((val: pokemonSetsAjax) => {
       return val.response.data.filter(
-        (item) =>
+        (item: pokemonSetsResponse) =>
           item.series === "Sword & Shield" && item.name.includes("Gallery")
       );
     }),
-    map((val) => {
+    tap((val) => console.log("post pokemonSetsResponse", val)),
+    map((val: pokemonSetsResponse[]) => {
       val.reverse();
       return val.map(({ name, id }) => ({ name, id }));
     })
@@ -97,13 +118,12 @@ function App() {
     catchError(() => {
       return throwError(() => new Error("Could not fetch selector from DOM"));
     }),
-    tap((val) =>
-      console.log("val.target.id", val.target.id, "val alone is", val)
-    ),
-    map((val) => {
+
+    // left as any for now in type
+    map((val: any) => {
       return val.target.id;
     }),
-    switchMap((val) =>
+    switchMap((val: string) =>
       ajax({
         url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
         method: "GET",
@@ -115,12 +135,16 @@ function App() {
     catchError(() => {
       return throwError(() => new Error("Could not fetch cards list from API"));
     }),
-    map((val) => val.response)
+    map((val) => val.response),
+    tap((val) => console.log("final val typeof", typeof val, "val", val))
   );
 
   useEffect(() => {
     const cardSubscription = renderCards$.subscribe({
-      next: (value) => setCards(value),
+      //any used here
+      next: (value: any) => {
+        setCards(value);
+      },
       complete: () => console.log("COMPLETE: cardSubscription"),
       error: (e) => console.log("ERROR: cardSubscription ", e),
     });
@@ -153,7 +177,8 @@ function App() {
 
   useEffect(() => {
     pageLoad$.subscribe({
-      next: (value) => setCards(value),
+      //any used here
+      next: (value: any) => setCards(value),
       complete: () => console.log("COMPLETE: cardsPageLoad"),
       error: (e) => console.log("ERROR: cardsPageLoad ", e),
     });
@@ -182,7 +207,8 @@ function App() {
                     id={nav.id}
                     className="generated-nav"
                     ref={(element) => {
-                      navSelector.current[index] = element;
+                      if (element !== null)
+                        navSelector.current[index] = element;
                     }}
                   >
                     {nav.name}
@@ -199,7 +225,7 @@ function App() {
         </nav>
         <section className="results">
           {cards ? (
-            cards.data.map((card, i) => {
+            cards.data.map((card: Card, i: number) => {
               return (
                 <>
                   <div className="placeholder" key={i}>
