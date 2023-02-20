@@ -8,7 +8,7 @@ import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 import loadSpinner from "./assets/img/load-cards-spinner.svg";
 import { ajax } from "rxjs/ajax";
-import { fromEvent, throwError } from "rxjs";
+import { fromEvent, Observable, throwError } from "rxjs";
 import {
   map,
   concatMap,
@@ -18,15 +18,35 @@ import {
   catchError,
 } from "rxjs/operators";
 
-function App(): JSXElement {
+function App() {
+  // these not working?
+  interface NavigationItems {}
+
+  interface CardItems {}
+
+  // can we tweak this or the typescript declaration to just use the `in` operator keyword to say is the response in the obj, if so continue or something. Don't need anything else.
+  interface setResponse {
+    loaded?: number;
+    originalEvent?: any;
+    request?: any;
+    response?: any;
+    responseHeaders?: any;
+    responseType?: string;
+    status?: number;
+    total?: number;
+    type: string;
+    xhr?: any;
+  }
   /*****************SETUP*********************/
 
   // getCards API
-  const [cards, setCards] = useState();
+  const [cards, setCards] = useState<CardItems | null>(null);
   // getSets API
-  const [navigationList, setNavigationList] = useState("");
+  const [navigationList, setNavigationList] = useState<
+    NavigationItems[] | null
+  >(null);
   // Loads nav without breaking React render
-  const navSelector = useRef([]);
+  const navSelector = useRef<HTMLDivElement[]>([]);
 
   /********************************************/
 
@@ -42,6 +62,7 @@ function App(): JSXElement {
         () => new Error("Could not fetch navigation list from API")
       );
     }),
+    tap((val: setResponse) => console.log("allsetsVal", val)),
     map((val) => {
       return val.response.data.filter(
         (item) =>
@@ -64,6 +85,9 @@ function App(): JSXElement {
     });
   }, []);
 
+  console.log("CARDS", cards);
+  console.log("NAVIGATIONLIST", navigationList);
+
   /*****************************************************************/
 
   /**********************RENDER_CARDS_API**************************/
@@ -73,6 +97,9 @@ function App(): JSXElement {
     catchError(() => {
       return throwError(() => new Error("Could not fetch selector from DOM"));
     }),
+    tap((val) =>
+      console.log("val.target.id", val.target.id, "val alone is", val)
+    ),
     map((val) => {
       return val.target.id;
     }),
