@@ -18,7 +18,7 @@ import {
   catchError,
 } from "rxjs/operators";
 
-function App() {
+function App(): JSXElement {
   /*****************SETUP*********************/
 
   // getCards API
