@@ -1,25 +1,24 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
-import placeholder from "./assets/img/placeholder.png";
 import logo from "./assets/img/Logo.svg";
-import logoMobile from "./assets/img/logo-mobile.svg";
 import add from "./assets/img/Add.svg";
 import want from "./assets/img/Want.svg";
 import github from "./assets/img/github-mark-white.svg";
 import loadSpinner from "./assets/img/load-cards-spinner.svg";
 import { ajax } from "rxjs/ajax";
 import { fromEvent, throwError } from "rxjs";
-import {
-  map,
-  concatMap,
-  switchMap,
-  tap,
-  filter,
-  catchError,
-} from "rxjs/operators";
+import { map, switchMap, catchError } from "rxjs/operators";
+
+/* 
+useObservableState?
+O. Option/Fold/Some?/FoldXState?
+
+*/
 
 function App() {
   /*****************SETUP*********************/
+
+  //?
 
   // getCards API
   const [cards, setCards] = useState();
@@ -30,6 +29,7 @@ function App() {
 
   /********************************************/
 
+  // FPTS :: TaskEither
   const getAllSets$ = ajax({
     url: "https://api.pokemontcg.io/v2/sets",
     method: "GET",
@@ -37,6 +37,7 @@ function App() {
       "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
     },
   }).pipe(
+    // FPTS :: FPTS Pipe, Map, Fold
     catchError(() => {
       return throwError(
         () => new Error("Could not fetch navigation list from API")
@@ -54,6 +55,7 @@ function App() {
     })
   );
 
+  //?
   useEffect(() => {
     getAllSets$.subscribe({
       next: (value) => setNavigationList(value),
@@ -68,6 +70,7 @@ function App() {
 
   /**********************RENDER_CARDS_API**************************/
 
+  //?
   const renderCards$ = fromEvent(navSelector.current, "click").pipe(
     //tap((val) => console.log(val.target.id)),
     catchError(() => {
@@ -91,6 +94,7 @@ function App() {
     map((val) => val.response)
   );
 
+  //?
   useEffect(() => {
     const cardSubscription = renderCards$.subscribe({
       next: (value) => setCards(value),
@@ -109,6 +113,7 @@ function App() {
 
   /******************RENDER_CARDS_PAGELOAD_API**********************/
 
+  //?
   const pageLoad$ = ajax({
     url: `https://api.pokemontcg.io/v2/cards?q=set.id:swsh12pt5gg`,
     method: "GET",
@@ -124,6 +129,7 @@ function App() {
     map((val) => val.response)
   );
 
+  //?
   useEffect(() => {
     pageLoad$.subscribe({
       next: (value) => setCards(value),
