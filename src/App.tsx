@@ -7,7 +7,14 @@ import github from "./assets/img/github-mark-white.svg";
 import loadSpinner from "./assets/img/load-cards-spinner.svg";
 import { ajax } from "rxjs/ajax";
 import { fromEvent, throwError } from "rxjs";
-import { map, switchMap, catchError } from "rxjs/operators";
+import * as RX from "rxjs/operators";
+import * as E from "fp-ts/lib/Either";
+import * as TE from "fp-ts/lib/TaskEither";
+import * as T from "fp-ts/lib/Task";
+import * as O from "fp-ts/lib/Option";
+import React from "react";
+
+import { flow, pipe } from "fp-ts/lib/function";
 
 /* 
 useObservableState?
@@ -29,6 +36,39 @@ function App() {
 
   /********************************************/
 
+  // const getSetList = (setUrl: string): TE.TaskEither<Error, SetData> => {
+  //   return TE.tryCatch(
+  //     () =>
+  //       fetch(setUrl, {
+  //         method: "GET",
+  //         headers: {
+  //           "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
+  //         },
+  //       }).then((res) => {
+  //         if (!res.ok) {
+  //           throw new Error(`Fetch failed with status : ${res.status}`);
+  //         }
+  //         return res.json();
+  //       }),
+  //     E.toError
+  //   );
+  // };
+
+  // const getSetListFull = pipe(
+  //   getSetList("https://api.pokemontcg.io/v2/sets"),
+  //   TE.fold(
+  //     (e) => T.of(`oh no, an error occurred: ${e.message}`),
+  //     (sets) => T.of(`sets recovered succesfully, number of sets are: ${sets}`)
+  //   )
+  // );
+
+  // const renderData = () =>
+  //   pipe(getSetListFull(), (val) => console.log(JSON.parse(val)));
+
+  // renderData();
+
+  // console.log(getSetListFull());
+
   // FPTS :: TaskEither
   const getAllSets$ = ajax({
     url: "https://api.pokemontcg.io/v2/sets",
@@ -38,24 +78,24 @@ function App() {
     },
   }).pipe(
     // FPTS :: FPTS Pipe, Map, Fold
-    catchError(() => {
+    RX.catchError(() => {
       return throwError(
         () => new Error("Could not fetch navigation list from API")
       );
     }),
-    map((val) => {
+    RX.map((val) => {
       return val.response.data.filter(
         (item) =>
           item.series === "Sword & Shield" && item.name.includes("Gallery")
       );
     }),
-    map((val) => {
+    RX.map((val) => {
       val.reverse();
       return val.map(({ name, id }) => ({ name, id }));
     })
   );
 
-  //?
+  // ?
   useEffect(() => {
     getAllSets$.subscribe({
       next: (value) => setNavigationList(value),
@@ -73,13 +113,13 @@ function App() {
   //?
   const renderCards$ = fromEvent(navSelector.current, "click").pipe(
     //tap((val) => console.log(val.target.id)),
-    catchError(() => {
+    RX.catchError(() => {
       return throwError(() => new Error("Could not fetch selector from DOM"));
     }),
-    map((val) => {
+    RX.map((val) => {
       return val.target.id;
     }),
-    switchMap((val) =>
+    RX.switchMap((val) =>
       ajax({
         url: `https://api.pokemontcg.io/v2/cards?q=set.id:${val}`,
         method: "GET",
@@ -88,10 +128,10 @@ function App() {
         },
       })
     ),
-    catchError(() => {
+    RX.catchError(() => {
       return throwError(() => new Error("Could not fetch cards list from API"));
     }),
-    map((val) => val.response)
+    RX.map((val) => val.response)
   );
 
   //?
@@ -121,12 +161,12 @@ function App() {
       "X-Api-Key": `${process.env.REACT_APP_API_KEY}`,
     },
   }).pipe(
-    catchError(() => {
+    RX.catchError(() => {
       return throwError(
         () => new Error("Could not fetch cards API for pageLoad ")
       );
     }),
-    map((val) => val.response)
+    RX.map((val) => val.response)
   );
 
   //?
